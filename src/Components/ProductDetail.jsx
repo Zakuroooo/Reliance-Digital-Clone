@@ -49,13 +49,13 @@ const ProductDetail = () => {
   return (
     <div>
       <Header />
-      <div className="w-full flex justify-start px-4 mt-6">
+      <div className="w-full flex justify-start px-4 mt-4 sm:mt-6">
         <button
           onClick={() => navigate(-1)}
-          className="ml-9 inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+          className="ml-4 sm:ml-9 inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 text-sm sm:text-base"
         >
           <svg
-            className="mr-2 h-5 w-5"
+            className="mr-1.5 h-4 w-4 sm:mr-2 sm:h-5 sm:w-5"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -70,68 +70,65 @@ const ProductDetail = () => {
         </button>
       </div>
       <div className="container mx-auto p-4 min-h-screen flex flex-col justify-center">
-        <div className="flex flex-col md:flex-row w-full max-w-6xl">
-          <div className="md:w-1/6 mb-4 md:mb-0 flex md:flex-col justify-start items-center overflow-x-auto md:overflow-y-auto md:max-h-[400px]">
+        <div className="flex flex-col md:flex-row w-full max-w-6xl gap-4 sm:gap-6">
+          <div className="md:w-1/3 w-full mb-4 md:mb-0 flex md:flex-col justify-center md:justify-start items-center overflow-x-auto md:overflow-y-auto md:max-h-[300px] lg:max-h-[350px]">
             {product.images.map((image, index) => (
               <img
                 key={index}
                 src={image}
                 alt={`Product Image ${index}`}
-                className="w-16 h-16 md:w-full md:h-auto cursor-pointer rounded border mb-2 mr-2 md:mr-0 flex-shrink-0"
+                className="w-12 h-12 sm:w-14 sm:h-14 md:w-full md:h-auto cursor-pointer rounded border mb-1 sm:mb-1.5 mr-1 sm:mr-1.5 md:mr-0 flex-shrink-0"
                 onClick={() => setSelectedImage(image)}
               />
             ))}
           </div>
-          <div className="md:w-1/2 pl-0 md:pl-4 mb-4 md:mb-0">
-            <div className="mb-4">
+          <div className="md:w-1/2 w-full pl-0 md:pl-4 mb-4 md:mb-0">
+            <div className="mb-2 sm:mb-3">
               <img
                 src={selectedImage}
                 alt={product.name}
-                className="w-full h-auto object-cover rounded"
+                className="w-full h-60 sm:h-72 object-contain rounded"
               />
             </div>
           </div>
-          <div className="md:w-1/3 pl-0 md:pl-4">
-            <h1 className="text-xl md:text-2xl text-[#070707] font-bold mb-2">
+          <div className="md:w-1/3 w-full pl-0 md:pl-4 space-y-2 sm:space-y-3">
+            <h1 className="text-base sm:text-lg md:text-xl text-[#070707] font-bold mb-0.5 sm:mb-1">
               {product.name}
             </h1>
-            <h2 className="text-lg md:text-xl text-[#1f288a] mb-4">
+            <h2 className="text-sm sm:text-base md:text-lg text-[#1f288a] mb-2 sm:mb-3">
               Deal Price: ₹{product.price}
             </h2>
-            <div className="bg-[#f8f2f2] p-4 rounded shadow-md">
-              <h3 className="text-base md:text-lg text-[#040404] font-semibold mb-2">
+            <div className="bg-[#f8f2f2] p-3 rounded shadow-md space-y-1.5">
+              <h3 className="text-sm md:text-base text-[#040404] font-semibold mb-1">
                 Key Features
               </h3>
               <ul>
                 {product.features
                   .slice(0, showMore ? product.features.length : 3)
                   .map((feature, index) => (
-                    <li
-                      key={index}
-                      className="text-sm md:text-base text-[#0d0d0d]"
-                    >
+                    <li key={index} className="text-xs text-[#0d0d0d]">
                       {feature}
                     </li>
                   ))}
               </ul>
               <button
                 onClick={() => setShowMore(!showMore)}
-                className="text-red-500 mt-2 hover:underline text-sm md:text-base"
+                className="text-red-500 mt-1 hover:underline text-xs"
               >
                 {showMore ? "Show Less" : "Show More"}
               </button>
             </div>
-            <div className="mt-4">
+            <div className="mt-2 sm:mt-3">
               <button
-                className="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-md font-bold text-sm md:text-base"
+                className="w-full bg-red-500 hover:bg-red-600 text-white py-1.5 px-3 rounded-md font-bold text-sm"
                 onClick={() => addToCart(product)}
               >
                 Add to Cart
               </button>
             </div>
-            <div className="mt-4">
+            <div className="mt-2 sm:mt-3">
               <button
-                className="w-full bg-orange-500 hover:bg-orange-400 text-white py-2 px-4 rounded-md font-bold text-sm md:text-base"
+                className="w-full bg-orange-500 hover:bg-orange-400 text-white py-1.5 px-3 rounded-md font-bold text-sm"
                 onClick={() => handleBuyNow(product)}
               >
                 Buy Now

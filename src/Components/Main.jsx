@@ -26,7 +26,7 @@ const Main = () => {
           🎉
         </p>
       </div>
-      <main className="w-full max-w-[1400px] mx-auto px-1 py-4 space-y-4">
+      <main className="w-full max-w-[1200px] mx-auto px-1 py-2 space-y-2">
         <HeroCard />
         <Bestseller />
         <Trending />

@@ -9,7 +9,7 @@
       confidence and enjoy exclusive deals on top brands.
     </p>
     <Link
-      to="/products"
+      to="/main#bestseller-section"
       className="inline-block bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors duration-200"
     >
       Shop Now
