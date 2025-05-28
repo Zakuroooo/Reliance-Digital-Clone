@@ -76,10 +76,18 @@ const Cart = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
-        <div className="container mx-auto p-4 flex-grow flex justify-center items-center">
-          <h2 className="text-xl text-gray-700">
-            Please login first to see cart items
-          </h2>
+        <div className="container mx-auto p-4 flex-grow">
+          <button
+            onClick={() => navigate(-1)}
+            className="mb-4 text-blue-600 hover:text-blue-800 flex items-center"
+          >
+            ← Back
+          </button>
+          <div className="flex justify-center items-center">
+            <h2 className="text-xl text-gray-700">
+              Please login to view your cart!
+            </h2>
+          </div>
         </div>
         <Footer className="mt-auto" />
       </div>
@@ -90,8 +98,16 @@ const Cart = () => {
     return (
       <div className="flex flex-col min-h-screen">
         <Header />
-        <div className="container mx-auto p-4 flex-grow flex justify-center items-center">
-          <h2 className="text-xl text-gray-700">Your cart is empty!</h2>
+        <div className="container mx-auto p-4 flex-grow">
+          <button
+            onClick={() => navigate(-1)}
+            className="mb-4 text-blue-600 hover:text-blue-800 flex items-center"
+          >
+            ← Back
+          </button>
+          <div className="flex justify-center items-center">
+            <h2 className="text-xl text-gray-700">Your cart is empty!</h2>
+          </div>
         </div>
         <Footer className="mt-auto" />
       </div>
@@ -101,70 +117,95 @@ const Cart = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="container mx-auto p-4 flex-grow grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left: Cart Items */}
-        <div className="lg:col-span-2">
-          {cartItems.map((item) => (
-            <div
-              key={item.id}
-              className="p-4 bg-white shadow-md rounded flex justify-between items-center mb-4"
-            >
-              <img
-                src={item.images[0]}
-                alt={item.name}
-                className="w-20 h-20 object-cover rounded"
-              />
-              <div className="flex-1 ml-4">
-                <h2 className="text-lg font-semibold">{item.name}</h2>
-                <p className="text-gray-600">Price: ₹{item.price}</p>
-                <div className="flex items-center mt-2">
-                  <label className="mr-2">Quantity:</label>
-                  <select
-                    value={item.quantity}
-                    onChange={(e) =>
-                      updateQuantity(item.id, parseInt(e.target.value))
-                    }
-                    className="border p-1 rounded"
-                  >
-                    {[...Array(10).keys()].map((i) => (
-                      <option key={i + 1} value={i + 1}>
-                        {i + 1}
-                      </option>
-                    ))}
-                  </select>
+      <div className="container mx-auto p-4 flex-grow">
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-6 self-start inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+        >
+          <svg
+            className="mr-2 h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+          Back to Products
+        </button>
+        <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left: Cart Items */}
+          <div className="lg:col-span-2">
+            {cartItems.map((item) => (
+              <div
+                key={item.id}
+                className="p-4 bg-white shadow-md rounded flex justify-between items-center mb-4"
+              >
+                <img
+                  src={item.images[0]}
+                  alt={item.name}
+                  className="w-20 h-20 object-cover rounded"
+                />
+                <div className="flex-1 ml-4">
+                  <h2 className="text-lg font-semibold">{item.name}</h2>
+                  <p className="text-gray-600">Price: ₹{item.price}</p>
+                  <div className="flex items-center mt-2">
+                    <label className="mr-2">Quantity:</label>
+                    <select
+                      value={item.quantity}
+                      onChange={(e) =>
+                        updateQuantity(item.id, parseInt(e.target.value))
+                      }
+                      className="border p-1 rounded"
+                    >
+                      {[...Array(10).keys()].map((i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
+                <button
+                  className="ml-4 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Right: Price Summary */}
+          <div className="lg:col-span-1">
+            <div className="bg-white p-4 rounded shadow-md">
+              <h2 className="text-xl font-bold mb-4">Price Details</h2>
+              <div className="mb-2">
+                <p className="text-gray-700">
+                  Price ({cartItems.length} Items):
+                </p>
+                <p>₹{totalPrice}</p>
+              </div>
+              <div className="mb-2">
+                <p className="text-gray-700">Delivery Charges:</p>
+                <p className="text-green-600">FREE</p>
+              </div>
+              <div className="border-t mt-2 pt-2">
+                <p className="text-xl font-semibold">Total Payable:</p>
+                <p className="text-xl font-bold">₹{totalPrice}</p>
               </div>
               <button
-                className="ml-4 bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                onClick={() => removeFromCart(item.id)}
+                className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
+                onClick={handleCheckout}
               >
-                Remove
+                Checkout
               </button>
             </div>
-          ))}
-        </div>
-
-        {/* Right: Price Summary */}
-        <div className="bg-white p-4 shadow-md rounded">
-          <h2 className="text-xl font-bold mb-4">Price Details</h2>
-          <div className="mb-2">
-            <p className="text-gray-700">Price ({cartItems.length} Items):</p>
-            <p>₹{totalPrice}</p>
           </div>
-          <div className="mb-2">
-            <p className="text-gray-700">Delivery Charges:</p>
-            <p className="text-green-500">FREE</p>
-          </div>
-          <div className="border-t mt-2 pt-2">
-            <p className="text-xl font-semibold">Total Payable:</p>
-            <p className="text-xl font-bold">₹{totalPrice}</p>
-          </div>
-          <button
-            className="mt-4 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded"
-            onClick={handleCheckout}
-          >
-            Checkout
-          </button>
         </div>
       </div>
       <Footer className="mt-auto" />
